@@ -1,6 +1,6 @@
 The first step was loading of caret:
 
-> library(caret)
+    library(caret)
 
 Next, the training set was loaded:
 
