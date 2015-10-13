@@ -1,44 +1,69 @@
-load caret
+The first step was loading of caret:
 
 <code>
 library(caret)
 </code>
 
-load the training set
+Next, the training set was loaded:
 
 <code>
 training <- read.csv("pml-training.csv", header=T, na=c("NA",""))
 </code>
 
-# explore data
-dim(training)                       # to see how it looks like
-training$X                          # X are just indexes, useless for machine learning, index 1
-table(training$user_name)           # user names are useless for machine learning, index 2
-plot(training$raw_timestamp_part_1) # useless for machine learning, index 3
-plot(training$raw_timestamp_part_2) # useless for machine learning, index 4
-plot(training$cvtd_timestamp)       # useless for machine learning, index 5
-plot(training$new_window)           # useless for machine learning, index 6
-plot(training$num_window)           # useless for machine learning, index 7
-table(training$classe)              # to see how outcomes look like
+Then I explored data to check meaning of columns:
 
+<code>
+dim(training)
+training$X
+table(training$user_name)
+plot(training$raw_timestamp_part_1)
+plot(training$raw_timestamp_part_2)
+plot(training$cvtd_timestamp)
+plot(training$new_window)
+plot(training$num_window)
+table(training$classe)
+</code>
+
+it turned out that columns 1:7 are useless for machine learning, so they were removed:
+
+<code>
 training.filt <- training[,8:ncol(training)]
+</code>
 
+Data contain a lot of missing values, columns with missing values were removed:
+
+<code>
 isna <- is.na(training.filt)
 isna.col <- apply(isna, 2, sum)==0
 training.pure <- training.filt[,isna.col]
+</code>
 
-# partition the training set to training and in-training validation
-set.seed(666)                       # set seed
+The training set was paritioned to "real" training set and in-training validation set:
+
+<code>
+set.seed(666)
 train.logical <-createDataPartition(training.pure$classe,p=0.5,list=FALSE)
 real.training <- training.pure[train.logical,]
 first.testing <- training.pure[-train.logical,]
+</code>
 
-# train Random Forest
-set.seed(667)                       # set seed
+It was trained by Random Forest with cross-validation:
+
+<code>
+set.seed(667)
 rfmod <- train(classe~., data=real.training,
                method="rf", trControl=trainControl(method="cv"))
+</code>
+
+The result was
+
+<code>
 rfmod
+#
 rf_model$finalModel
+#
+</code>
+
 plot(rf_model$finalModel)
 first.pred <- predict(rfmod, first.testing)
 cm<-confusionMatrix(first.pred, first.testing$classe)
