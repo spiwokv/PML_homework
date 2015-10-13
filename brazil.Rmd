@@ -1,8 +1,14 @@
-# load caret
-require(caret)
+load caret
 
-# load the training set
+<code>
+library(caret)
+</code>
+
+load the training set
+
+<code>
 training <- read.csv("pml-training.csv", header=T, na=c("NA",""))
+</code>
 
 # explore data
 dim(training)                       # to see how it looks like
