@@ -28,29 +28,32 @@ Data contain a lot of missing values, columns with missing values were removed:
     isna.col <- apply(isna, 2, sum)==0
     training.pure <- training.filt[,isna.col]
 
-The training set was paritioned to "real" training set and in-training validation set:
+The training set was paritioned to "real" training set and in-training validation set (50+50 %):
 
     set.seed(666)
     train.logical <-createDataPartition(training.pure$classe,p=0.5,list=FALSE)
     real.training <- training.pure[train.logical,]
     first.testing <- training.pure[-train.logical,]
 
-It was trained by Random Forest with cross-validation:
+It was trained by Random Forest with a cross-validation:
 
     set.seed(667)
     rfmod <- train(classe~., data=real.training,
         method="rf", trControl=trainControl(method="cv"))
 
-The result was
+The result was:
 
     rfmod
     #
     rf_model$finalModel
     #
 
-Do plot:
+Then I prepared Figure 1:
 
     plot(rf_model$finalModel)
+
+The outcomes for the in-training validation set were predicted and the confusion matrix was calculated and ploted:
+
     first.pred <- predict(rfmod, first.testing)
     cm<-confusionMatrix(first.pred, first.testing$classe)
     image(1:5, 1:5, cm$table, col=rainbow(100)[70:1], zlim=c(0,3000),
@@ -61,6 +64,6 @@ Do plot:
     ypos <- rep(1:5, each=5)
     text(xpos, ypos, labels=as.vector(cm$table))
 
-Load testing dataset:
+Next, results were predicted for the test dataset:
 
     testing <- read.csv("pml-testing.csv", header=T)
