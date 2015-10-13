@@ -1,3 +1,5 @@
+# Practial Machine Learning - homework
+
 The first step was loading of caret:
 
     library(caret)
