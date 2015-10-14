@@ -53,3 +53,18 @@ text(xpos, ypos, labels=as.vector(cm$table))
 # application to the test set
 testing <- read.csv("pml-testing.csv", header=T)
 
+# removale of useless lines in the test set
+testing.filt <- testing[,8:(ncol(training)-1)]
+
+# addition of a blank column to test set to replace outcomes
+blank <- matrix(ncol=1, nrow=20)
+testing.filt <- cbind(testing.filt, blank)
+
+# filtering out misisng data and checking the format
+testing.pure <- testing.filt[,isna.col]
+testing.pure
+names(testing.pure)==names(training.pure)
+
+# prediction for the test set
+second.pred <- predict(rfmod, testing.pure)
+second.pred
