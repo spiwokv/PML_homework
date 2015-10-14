@@ -41,6 +41,8 @@ D    0    1   23 1581    3 0.016791045
 E    0    1    4    6 1793 0.006097561
 ```
 
+Error rate obtained by cross vlaidation was 1.05 % (OOB estimate of error rate).
+
 Then Figure 1 was prepared to illustrate the progress of Random Forest algorithm:
 
 ![Figure 1](https://cloud.githubusercontent.com/assets/8507616/10480659/bb6f5a10-726b-11e5-82dc-956b899b2da5.png)
