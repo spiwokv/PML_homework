@@ -41,28 +41,16 @@ D    0    1   23 1581    3 0.016791045
 E    0    1    4    6 1793 0.006097561
 ```
 
-Then I prepared Figure 1:
+Then Figure 1 was prepared to illustrate the progress of Random Forest algorithm:
+
+
+The outcomes for the in-training validation set were predicted and the confusion matrix was calculated and ploted as Figure 2:
+
+Finally, the test dataset was loaded, unused columns and columns with missing data were removed and prediction was made:
 
 ```{R}
-plot(rf_model$finalModel)
-```
-
-The outcomes for the in-training validation set were predicted and the confusion matrix was calculated and ploted:
-
-```{R}
-first.pred <- predict(rfmod, first.testing)
-cm<-confusionMatrix(first.pred, first.testing$classe)
-image(1:5, 1:5, cm$table, col=rainbow(100)[70:1], zlim=c(0,3000),
-    axes=F, xlab="predicted class", ylab="real class")
-axis(1, labels=c("A","B","C","D","E"), at=1:5)
-axis(2, labels=c("A","B","C","D","E"), at=1:5)
-xpos <- rep(1:5, times=5)
-ypos <- rep(1:5, each=5)
-text(xpos, ypos, labels=as.vector(cm$table))
-```
-
-Next, results were predicted for the test dataset:
-
-```{R}
-testing <- read.csv("pml-testing.csv", header=T)
+> second.pred <- predict(rfmod, testing.pure)
+> second.pred
+ [1] B A B A A E D B A A B C B A E E A B B B
+Levels: A B C D E
 ```
