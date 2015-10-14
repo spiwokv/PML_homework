@@ -31,9 +31,15 @@ first.testing <- training.pure[-train.logical,]
 set.seed(667)                       # set seed
 rfmod <- train(classe~., data=real.training,
                method="rf", trControl=trainControl(method="cv"))
+
+# checking results
 rfmod
-rf_model$finalModel
-plot(rf_model$finalModel)
+rfmod$finalModel
+
+# ploting results
+plot(rfmod$finalModel)
+
+# ploting confusion matrix
 first.pred <- predict(rfmod, first.testing)
 cm<-confusionMatrix(first.pred, first.testing$classe)
 image(1:5, 1:5, cm$table, col=rainbow(100)[70:1], zlim=c(0,3000),
@@ -44,4 +50,6 @@ xpos <- rep(1:5, times=5)
 ypos <- rep(1:5, each=5)
 text(xpos, ypos, labels=as.vector(cm$table))
 
+# application to the test set
 testing <- read.csv("pml-testing.csv", header=T)
+
