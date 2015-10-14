@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Pml homework by spiwokv</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Pml homework</h1>
+        <p>Practical machine learning - homework</p>
+
+        <p class="view"><a href="https://github.com/spiwokv/PML_homework">View the Project on GitHub <small>spiwokv/PML_homework</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/spiwokv/PML_homework/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/spiwokv/PML_homework/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/spiwokv/PML_homework">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="pml_homework" class="anchor" href="#pml_homework" aria-hidden="true"><span class="octicon octicon-link"></span></a>PML_homework</h1>
+
+<h2>
+<a id="practical-machine-learning---homework" class="anchor" href="#practical-machine-learning---homework" aria-hidden="true"><span class="octicon octicon-link"></span></a>Practical machine learning - homework</h2>
+
+<p>All analyses were done in R 3.2.2 under Ubuntu Linux. The first step was loading of caret. Next, the training set was loaded. Then I explored data to check meaning of columns. It turned out that columns 1:7 are useless for machine learning, so they were removed. Data contain a lot of missing values, columns with missing values were removed. The training set was paritioned to "real" training set and in-training validation set (50+50 %). It was trained by Random Forest with a cross-validation. The result was:</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-k">&gt;</span> <span class="pl-smi">rfmod</span>
+<span class="pl-smi">Random</span> <span class="pl-smi">Forest</span> 
+
+<span class="pl-c1">9812</span> <span class="pl-smi">samples</span>
+  <span class="pl-c1">52</span> <span class="pl-smi">predictors</span>
+   <span class="pl-c1">5</span> <span class="pl-smi">classes</span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>A<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>B<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>C<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>D<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>E<span class="pl-pds">'</span></span> 
+
+<span class="pl-smi">No</span> <span class="pl-smi">pre</span><span class="pl-k">-</span><span class="pl-smi">processing</span>
+<span class="pl-smi">Resampling</span><span class="pl-k">:</span> <span class="pl-smi">Cross</span><span class="pl-k">-</span>Validated (<span class="pl-c1">10</span> <span class="pl-smi">fold</span>) 
+<span class="pl-smi">Summary</span> <span class="pl-smi">of</span> <span class="pl-smi">sample</span> <span class="pl-smi">sizes</span><span class="pl-k">:</span> <span class="pl-c1">8831</span>, <span class="pl-c1">8831</span>, <span class="pl-c1">8833</span>, <span class="pl-c1">8830</span>, <span class="pl-c1">8831</span>, <span class="pl-c1">8831</span>, <span class="pl-k">...</span> 
+<span class="pl-smi">Resampling</span> <span class="pl-smi">results</span> <span class="pl-smi">across</span> <span class="pl-smi">tuning</span> <span class="pl-smi">parameters</span><span class="pl-k">:</span>
+
+  <span class="pl-smi">mtry</span>  <span class="pl-smi">Accuracy</span>   <span class="pl-smi">Kappa</span>      <span class="pl-smi">Accuracy</span> <span class="pl-smi">SD</span>  <span class="pl-smi">Kappa</span> <span class="pl-smi">SD</span>   
+   <span class="pl-c1">2</span>    <span class="pl-c1">0.9876685</span>  <span class="pl-c1">0.9843997</span>  <span class="pl-c1">0.003733782</span>  <span class="pl-c1">0.004722544</span>
+  <span class="pl-c1">27</span>    <span class="pl-c1">0.9893004</span>  <span class="pl-c1">0.9864663</span>  <span class="pl-c1">0.004136378</span>  <span class="pl-c1">0.005229355</span>
+  <span class="pl-c1">52</span>    <span class="pl-c1">0.9797192</span>  <span class="pl-c1">0.9743445</span>  <span class="pl-c1">0.006765749</span>  <span class="pl-c1">0.008556532</span>
+
+<span class="pl-smi">Accuracy</span> <span class="pl-smi">was</span> <span class="pl-smi">used</span> <span class="pl-smi">to</span> <span class="pl-smi">select</span> <span class="pl-smi">the</span> <span class="pl-smi">optimal</span> <span class="pl-smi">model</span> <span class="pl-smi">using</span>  <span class="pl-smi">the</span> <span class="pl-smi">largest</span> <span class="pl-smi">value</span>.
+<span class="pl-smi">The</span> <span class="pl-smi">final</span> <span class="pl-smi">value</span> <span class="pl-smi">used</span> <span class="pl-k">for</span> <span class="pl-smi">the</span> <span class="pl-smi">model</span> <span class="pl-smi">was</span> <span class="pl-v">mtry</span> <span class="pl-k">=</span> <span class="pl-c1">27</span>. 
+<span class="pl-k">&gt;</span> <span class="pl-smi">rfmod</span><span class="pl-k">$</span><span class="pl-smi">finalModel</span>
+
+<span class="pl-smi">Call</span><span class="pl-k">:</span>
+ randomForest(<span class="pl-v">x</span> <span class="pl-k">=</span> <span class="pl-smi">x</span>, <span class="pl-v">y</span> <span class="pl-k">=</span> <span class="pl-smi">y</span>, <span class="pl-v">mtry</span> <span class="pl-k">=</span> <span class="pl-smi">param</span><span class="pl-k">$</span><span class="pl-smi">mtry</span>) 
+               <span class="pl-smi">Type</span> <span class="pl-smi">of</span> <span class="pl-smi">random</span> <span class="pl-smi">forest</span><span class="pl-k">:</span> <span class="pl-smi">classification</span>
+                     <span class="pl-smi">Number</span> <span class="pl-smi">of</span> <span class="pl-smi">trees</span><span class="pl-k">:</span> <span class="pl-c1">500</span>
+<span class="pl-smi">No</span>. <span class="pl-smi">of</span> <span class="pl-smi">variables</span> <span class="pl-smi">tried</span> <span class="pl-smi">at</span> <span class="pl-smi">each</span> <span class="pl-smi">split</span><span class="pl-k">:</span> <span class="pl-c1">27</span>
+
+        <span class="pl-smi">OOB</span> <span class="pl-smi">estimate</span> <span class="pl-smi">of</span>  <span class="pl-smi">error</span> <span class="pl-smi">rate</span><span class="pl-k">:</span> <span class="pl-c1">1.05</span>%
+<span class="pl-smi">Confusion</span> <span class="pl-smi">matrix</span><span class="pl-k">:</span>
+     <span class="pl-smi">A</span>    <span class="pl-smi">B</span>    <span class="pl-smi">C</span>    <span class="pl-smi">D</span>    <span class="pl-smi">E</span> <span class="pl-smi">class.error</span>
+<span class="pl-smi">A</span> <span class="pl-c1">2778</span>    <span class="pl-c1">9</span>    <span class="pl-c1">2</span>    <span class="pl-c1">0</span>    <span class="pl-c1">1</span> <span class="pl-c1">0.004301075</span>
+<span class="pl-smi">B</span>   <span class="pl-c1">16</span> <span class="pl-c1">1875</span>    <span class="pl-c1">8</span>    <span class="pl-c1">0</span>    <span class="pl-c1">0</span> <span class="pl-c1">0.012638231</span>
+<span class="pl-smi">C</span>    <span class="pl-c1">0</span>   <span class="pl-c1">17</span> <span class="pl-c1">1682</span>   <span class="pl-c1">12</span>    <span class="pl-c1">0</span> <span class="pl-c1">0.016949153</span>
+<span class="pl-smi">D</span>    <span class="pl-c1">0</span>    <span class="pl-c1">1</span>   <span class="pl-c1">23</span> <span class="pl-c1">1581</span>    <span class="pl-c1">3</span> <span class="pl-c1">0.016791045</span>
+<span class="pl-smi">E</span>    <span class="pl-c1">0</span>    <span class="pl-c1">1</span>    <span class="pl-c1">4</span>    <span class="pl-c1">6</span> <span class="pl-c1">1793</span> <span class="pl-c1">0.006097561</span></pre></div>
+
+<p>Then Figure 1 was prepared to illustrate the progress of Random Forest algorithm:</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/8507616/10480659/bb6f5a10-726b-11e5-82dc-956b899b2da5.png" alt="Figure 1"></p>
+
+<p>The outcomes for the in-training validation set were predicted and the confusion matrix was calculated and ploted as Figure 2:</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/8507616/10480661/bfbbf4e8-726b-11e5-90ed-2a64fb0b94e8.png" alt="Figure 2"></p>
+
+<p>Finally, the test dataset was loaded, unused columns and columns with missing data were removed and prediction was made:</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-k">&gt;</span> <span class="pl-smi">second.pred</span> <span class="pl-k">&lt;-</span> predict(<span class="pl-smi">rfmod</span>, <span class="pl-smi">testing.pure</span>)
+<span class="pl-k">&gt;</span> <span class="pl-smi">second.pred</span>
+ [<span class="pl-c1">1</span>] <span class="pl-smi">B</span> <span class="pl-smi">A</span> <span class="pl-smi">B</span> <span class="pl-smi">A</span> <span class="pl-smi">A</span> <span class="pl-smi">E</span> <span class="pl-smi">D</span> <span class="pl-smi">B</span> <span class="pl-smi">A</span> <span class="pl-smi">A</span> <span class="pl-smi">B</span> <span class="pl-smi">C</span> <span class="pl-smi">B</span> <span class="pl-smi">A</span> <span class="pl-smi">E</span> <span class="pl-smi">E</span> <span class="pl-smi">A</span> <span class="pl-smi">B</span> <span class="pl-smi">B</span> <span class="pl-smi">B</span>
+<span class="pl-smi">Levels</span><span class="pl-k">:</span> <span class="pl-smi">A</span> <span class="pl-smi">B</span> <span class="pl-smi">C</span> <span class="pl-smi">D</span> <span class="pl-smi">E</span></pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/spiwokv">spiwokv</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
