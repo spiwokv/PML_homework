@@ -89,3 +89,32 @@ Next, results were predicted for the test dataset:
 ```{R}
 testing <- read.csv("pml-testing.csv", header=T)
 ```
+
+Useless lines in the test set were removed:
+
+```{R}
+testing.filt <- testing[,8:(ncol(training)-1)]
+```
+
+A blank column was added to test set to replace outcomes:
+
+```{R}
+blank <- matrix(ncol=1, nrow=20)
+testing.filt <- cbind(testing.filt, blank)
+```
+
+Misisng data were filterred out and format was checked:
+
+```{R}
+testing.pure <- testing.filt[,isna.col]
+testing.pure
+names(testing.pure)==names(training.pure)
+```
+
+Prediction for the test set was done:
+
+```{R}
+second.pred <- predict(rfmod, testing.pure)
+second.pred
+```
+
