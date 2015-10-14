@@ -18,16 +18,20 @@ plot(rf_model$finalModel)
 
 The outcomes for the in-training validation set were predicted and the confusion matrix was calculated and ploted:
 
-    first.pred <- predict(rfmod, first.testing)
-    cm<-confusionMatrix(first.pred, first.testing$classe)
-    image(1:5, 1:5, cm$table, col=rainbow(100)[70:1], zlim=c(0,3000),
-        axes=F, xlab="predicted class", ylab="real class")
-    axis(1, labels=c("A","B","C","D","E"), at=1:5)
-    axis(2, labels=c("A","B","C","D","E"), at=1:5)
-    xpos <- rep(1:5, times=5)
-    ypos <- rep(1:5, each=5)
-    text(xpos, ypos, labels=as.vector(cm$table))
+```{R}
+first.pred <- predict(rfmod, first.testing)
+cm<-confusionMatrix(first.pred, first.testing$classe)
+image(1:5, 1:5, cm$table, col=rainbow(100)[70:1], zlim=c(0,3000),
+    axes=F, xlab="predicted class", ylab="real class")
+axis(1, labels=c("A","B","C","D","E"), at=1:5)
+axis(2, labels=c("A","B","C","D","E"), at=1:5)
+xpos <- rep(1:5, times=5)
+ypos <- rep(1:5, each=5)
+text(xpos, ypos, labels=as.vector(cm$table))
+```
 
 Next, results were predicted for the test dataset:
 
-    testing <- read.csv("pml-testing.csv", header=T)
+```{R}
+testing <- read.csv("pml-testing.csv", header=T)
+```
