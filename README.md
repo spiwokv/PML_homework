@@ -43,7 +43,7 @@ E    0    1    4    6 1793 0.006097561
 
 Then Figure 1 was prepared to illustrate the progress of Random Forest algorithm:
 
-![Figure 1](https://cloud.githubusercontent.com/assets/8507616/10480659/bb6f5a10-726b-11e5-82dc-956b899b2da5.png
+![Figure 1](https://cloud.githubusercontent.com/assets/8507616/10480659/bb6f5a10-726b-11e5-82dc-956b899b2da5.png)
 
 The outcomes for the in-training validation set were predicted and the confusion matrix was calculated and ploted as Figure 2:
 
