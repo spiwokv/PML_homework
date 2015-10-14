@@ -61,13 +61,13 @@ The result was:
 
 ```{R}
 rfmod
-rf_model$finalModel
+rfmod$finalModel
 ```
 
 Then I prepared Figure 1:
 
 ```{R}
-plot(rf_model$finalModel)
+plot(rfmod$finalModel)
 ```
 
 The outcomes for the in-training validation set were predicted and the confusion matrix was calculated and ploted (Figure 2):
