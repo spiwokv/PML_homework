@@ -2,70 +2,90 @@
 
 The first step was loading of caret:
 
-    library(caret)
+```{R}
+library(caret)
+```
 
 Next, the training set was loaded:
 
-    training <- read.csv("pml-training.csv", header=T, na=c("NA",""))
+```{R}
+training <- read.csv("pml-training.csv", header=T, na=c("NA",""))
+```
 
 Then I explored data to check meaning of columns:
 
-    dim(training)
-    training$X
-    table(training$user_name)
-    plot(training$raw_timestamp_part_1)
-    plot(training$raw_timestamp_part_2)
-    plot(training$cvtd_timestamp)
-    plot(training$new_window)
-    plot(training$num_window)
-    table(training$classe)
+```{R}
+dim(training)
+training$X
+table(training$user_name)
+plot(training$raw_timestamp_part_1)
+plot(training$raw_timestamp_part_2)
+plot(training$cvtd_timestamp)
+plot(training$new_window)
+plot(training$num_window)
+table(training$classe)
+```
 
 It turned out that columns 1:7 are useless for machine learning, so they were removed:
 
-    training.filt <- training[,8:ncol(training)]
+```{R}
+training.filt <- training[,8:ncol(training)]
+```
 
 Data contain a lot of missing values, columns with missing values were removed:
 
-    isna <- is.na(training.filt)
-    isna.col <- apply(isna, 2, sum)==0
-    training.pure <- training.filt[,isna.col]
+```{R}
+isna <- is.na(training.filt)
+isna.col <- apply(isna, 2, sum)==0
+training.pure <- training.filt[,isna.col]
+```
 
 The training set was paritioned to "real" training set and in-training validation set (50+50 %):
 
-    set.seed(666)
-    train.logical <-createDataPartition(training.pure$classe,p=0.5,list=FALSE)
-    real.training <- training.pure[train.logical,]
-    first.testing <- training.pure[-train.logical,]
+```{R}
+set.seed(666)
+train.logical <-createDataPartition(training.pure$classe,p=0.5,list=FALSE)
+real.training <- training.pure[train.logical,]
+first.testing <- training.pure[-train.logical,]
+```
 
 It was trained by Random Forest with a cross-validation:
 
-    set.seed(667)
-    rfmod <- train(classe~., data=real.training,
-        method="rf", trControl=trainControl(method="cv"))
+```{R}
+set.seed(667)
+rfmod <- train(classe~., data=real.training,
+    method="rf", trControl=trainControl(method="cv"))
+```
 
 The result was:
 
-    rfmod
-    #
-    rf_model$finalModel
-    #
+```{R}
+rfmod
+rf_model$finalModel
+```
 
 Then I prepared Figure 1:
 
-    plot(rf_model$finalModel)
+```{R}
+plot(rf_model$finalModel)
+```
 
-The outcomes for the in-training validation set were predicted and the confusion matrix was calculated and ploted:
+The outcomes for the in-training validation set were predicted and the confusion matrix was calculated and ploted (Figure 2):
 
-    first.pred <- predict(rfmod, first.testing)
-    cm<-confusionMatrix(first.pred, first.testing$classe)
-    image(1:5, 1:5, cm$table, col=rainbow(100)[70:1], zlim=c(0,3000),
+```{R}
+first.pred <- predict(rfmod, first.testing)
+cm<-confusionMatrix(first.pred, first.testing$classe)
+image(1:5, 1:5, cm$table, col=rainbow(100)[70:1], zlim=c(0,3000),
         axes=F, xlab="predicted class", ylab="real class")
-    axis(1, labels=c("A","B","C","D","E"), at=1:5)
-    axis(2, labels=c("A","B","C","D","E"), at=1:5)
-    xpos <- rep(1:5, times=5)
-    ypos <- rep(1:5, each=5)
-    text(xpos, ypos, labels=as.vector(cm$table))
+axis(1, labels=c("A","B","C","D","E"), at=1:5)
+axis(2, labels=c("A","B","C","D","E"), at=1:5)
+xpos <- rep(1:5, times=5)
+ypos <- rep(1:5, each=5)
+text(xpos, ypos, labels=as.vector(cm$table))
+```
 
 Next, results were predicted for the test dataset:
 
-    testing <- read.csv("pml-testing.csv", header=T)
+```{R}
+testing <- read.csv("pml-testing.csv", header=T)
+```
